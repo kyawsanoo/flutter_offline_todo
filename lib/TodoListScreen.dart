@@ -3,7 +3,8 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:todoapp_offline/models/Todo.dart';
 
 class TodoListScreen extends StatefulWidget {
-  const TodoListScreen({Key? key}) : super(key: key);
+
+  const TodoListScreen({super.key});
 
   @override
   State<TodoListScreen> createState() => _TodoListScreenState();
