@@ -150,14 +150,23 @@ class _TodoListScreenState extends State<TodoListScreen> {
                 ),
                 ElevatedButton(
                     onPressed: () async {
-                      await box.put(
-                          DateTime.now().toString(),
-                          Todo(
-                            title: titleTextController.text,
-                            completed: false
-                          ));
-                      if (!context.mounted) return;
-                      Navigator.pop(context);
+                      if(titleTextController.text.isNotEmpty) {
+                        await box.put(
+                            DateTime.now().toString(),
+                            Todo(
+                                title: titleTextController.text,
+                                completed: false
+                            ));
+                        if (!context.mounted) return;
+                        Navigator.pop(context);
+                      }else{
+                        if (!context.mounted) return;
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text("Enter title."),
+                            )
+                        );
+                      }
                     },
                     child: const Text("Add")),
               ],
@@ -189,14 +198,24 @@ class _TodoListScreenState extends State<TodoListScreen> {
                 ),
                 ElevatedButton(
                     onPressed: () async {
-                      await box.putAt(
-                          index,
-                          Todo(
-                              title: titleTextController.text,
-                              completed: false
-                          ));
-                      if (!context.mounted) return;
-                      Navigator.pop(context);
+                      if(titleTextController.text.isNotEmpty) {
+                        await box.putAt(
+                            index,
+                            Todo(
+                                title: titleTextController.text,
+                                completed: false
+                            ));
+                        if (!context.mounted) return;
+                        Navigator.pop(context);
+                      }else{
+                        if (!context.mounted) return;
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text("Enter title."),
+                            )
+                        );
+                      }
+
                     },
                     child: const Text("Update")),
               ],
@@ -242,8 +261,8 @@ class _TodoListScreenState extends State<TodoListScreen> {
                         ),
                         child: const Text('Ok'),
                         onPressed: () async {
-                          box.deleteAt(index);
-                          if (!context.mounted) return;
+                            box.deleteAt(index);
+                            if (!context.mounted) return;
                             ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
                                     content: Text("Deleted successfully."),
